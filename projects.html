@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Afnan Ahmed Bhuiyan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS VARIABLES — shared with index.html
+============================================================ */
+:root {
+  --accent: #FF6B1A;
+  --accent-bright: #FF8C42;
+  --accent-muted: rgba(255, 107, 26, 0.15);
+  --accent-glow: rgba(255, 107, 26, 0.35);
+  --bg: #0A0A0A;
+  --bg-2: #111111;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.07);
+  --border: rgba(255,255,255,0.08);
+  --border-accent: rgba(255, 107, 26, 0.3);
+  --text: #F0EDE8;
+  --text-muted: rgba(240,237,232,0.5);
+  --text-subtle: rgba(240,237,232,0.3);
+  --header-bg: rgba(12,12,12,0.6);
+  --gradient-hero: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,107,26,0.15) 0%, transparent 70%);
+  --shadow-card: 0 4px 40px rgba(0,0,0,0.4);
+  --shadow-accent: 0 0 60px rgba(255,107,26,0.2);
+  --radius: 20px;
+  --transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-theme="light"] {
+  --bg: #F7F4F0;
+  --bg-2: #EDE9E3;
+  --bg-card: rgba(0,0,0,0.04);
+  --bg-card-hover: rgba(0,0,0,0.07);
+  --border: rgba(0,0,0,0.08);
+  --header-bg: rgba(247,244,240,0.7);
+  --text: #1A1410;
+  --text-muted: rgba(26,20,16,0.55);
+  --text-subtle: rgba(26,20,16,0.35);
+  --gradient-hero: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,107,26,0.1) 0%, transparent 70%);
+  --shadow-card: 0 4px 30px rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* ============================================================
+   HEADER (same as index)
+============================================================ */
+.header-wrap {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: calc(100% - 40px);
+  max-width: 920px;
+  transition: top 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+}
+
+.header-wrap.hidden { top: -100px; opacity: 0; pointer-events: none; }
+
+header {
+  background: var(--header-bg);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,107,26,0.06);
+  transition: background 0.4s ease;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.header-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--accent-muted);
+}
+
+.header-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.header-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+nav { display: flex; align-items: center; gap: 4px; }
+
+nav a {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 7px 14px;
+  border-radius: 100px;
+  transition: var(--transition);
+}
+
+nav a:hover, nav a.active { color: var(--text); background: var(--bg-card); }
+nav a.active { color: var(--accent); }
+
+.header-actions { display: flex; align-items: center; gap: 8px; }
+
+.theme-toggle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  color: var(--text-muted);
+}
+
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-muted); }
+.theme-toggle svg { width: 15px; height: 15px; }
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+
+.btn-contact {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.btn-contact:hover { background: var(--accent-bright); transform: translateY(-1px); }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: 6px;
+  background: none;
+  border: none;
+}
+.hamburger span { display: block; width: 20px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); }
+
+.mobile-nav-wrap {
+  display: none;
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 920px;
+  background: var(--header-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  z-index: 999;
+  padding: 8px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+}
+.mobile-nav-wrap.open { display: block; }
+.mobile-nav { display: flex; flex-direction: column; gap: 4px; }
+.mobile-nav a {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  transition: var(--transition);
+}
+.mobile-nav a:hover { color: var(--text); background: var(--bg-card); }
+
+/* ============================================================
+   PAGE HERO
+============================================================ */
+.page-hero {
+  padding: 160px 32px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero);
+  pointer-events: none;
+}
+
+.page-hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.page-hero h1 em { font-style: italic; color: var(--accent); }
+
+.page-hero p {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 300;
+  position: relative;
+}
+
+/* ============================================================
+   FILTER TABS
+============================================================ */
+.filter-wrap {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 48px 0 56px;
+}
+
+.filter-btn {
+  font-size: 13px;
+  font-weight: 400;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.02em;
+}
+
+.filter-btn:hover { color: var(--text); border-color: rgba(255,107,26,0.2); }
+.filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 16px var(--accent-glow); }
+
+/* ============================================================
+   PROJECTS GRID
+============================================================ */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  padding-bottom: 80px;
+}
+
+/* ─── PROJECT CARD ─── */
+.project-card {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  overflow: hidden;
+  transition: var(--transition);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  /* cursor: pointer; */
+}
+
+.project-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-accent), var(--shadow-card);
+}
+
+.project-card-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--bg-2);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card-img svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Overlay on hover */
+.project-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 107, 26, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.project-card:hover .project-card-overlay { opacity: 1; }
+
+.overlay-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px var(--accent-glow);
+  transform: scale(0.8);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.project-card:hover .overlay-icon { transform: scale(1); }
+.overlay-icon svg { color: #fff; width: 18px; height: 18px; }
+
+.project-card-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.project-card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tag.accent {
+  border-color: var(--border-accent);
+  color: var(--accent);
+}
+
+.project-card-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.project-card-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.project-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+  transition: gap 0.3s ease;
+}
+
+.project-card:hover .project-card-link { gap: 10px; }
+.project-card-link svg { width: 12px; height: 12px; }
+
+/* Disabled state for dummy projects */
+.project-card.coming-soon {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   COMING SOON BADGE
+============================================================ */
+.badge-cs {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(255,107,26,0.15);
+  border: 1px solid var(--border-accent);
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   BOTTOM CTA
+============================================================ */
+.bottom-section {
+  padding: 40px 0 80px;
+  text-align: center;
+}
+
+.bottom-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border-accent);
+  padding: 10px 22px;
+  border-radius: 100px;
+  transition: var(--transition);
+}
+
+.back-link:hover {
+  background: var(--accent-muted);
+  transform: translateY(-2px);
+}
+
+.back-link svg { width: 13px; height: 13px; }
+
+/* ============================================================
+   WATERMARK
+============================================================ */
+.watermark {
+  text-align: center;
+  padding: 16px 32px 32px;
+  font-size: 12px;
+  color: var(--text-subtle);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   FADE IN
+============================================================ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up-delay-1 { transition-delay: 0.08s; }
+.fade-up-delay-2 { transition-delay: 0.16s; }
+.fade-up-delay-3 { transition-delay: 0.24s; }
+.fade-up-delay-4 { transition-delay: 0.32s; }
+.fade-up-delay-5 { transition-delay: 0.40s; }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 768px) {
+  nav { display: none; }
+  .hamburger { display: flex; }
+  .header-name { display: none; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .container { padding: 0 20px; }
+  .page-hero { padding: 120px 20px 60px; }
+}
+
+@media (max-width: 480px) {
+  .header-wrap { width: calc(100% - 24px); top: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header-wrap" id="headerWrap">
+  <header>
+    <a href="index.html" class="header-logo">
+      <div class="header-avatar">
+        <img src="Afnan_Side-pose-orange.png" alt="Afnan">
+      </div>
+      <span class="header-name">Afnan Ahmed</span>
+    </a>
+    <nav>
+      <a href="index.html#services">Services</a>
+      <a href="projects.html" class="active">Work</a>
+      <a href="index.html#testimonials">Reviews</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <a href="mailto:afnan@example.com" class="btn-contact">Contact</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+</div>
+
+<div class="mobile-nav-wrap" id="mobileNav">
+  <div class="mobile-nav">
+    <a href="index.html#services">Services</a>
+    <a href="projects.html">Work</a>
+    <a href="index.html#testimonials">Reviews</a>
+    <a href="mailto:afnan@example.com">Contact</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <h1 class="fade-up">Things <em>I've Built.</em></h1>
+    <p class="fade-up fade-up-delay-1">A curated collection of websites, landing pages, and digital experiences crafted with intention.</p>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="container">
+    <div class="filter-wrap fade-up fade-up-delay-2">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="landing">Landing Pages</button>
+      <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
+      <button class="filter-btn" data-filter="wordpress">WordPress</button>
+    </div>
+  </div>
+
+  <!-- PROJECTS GRID -->
+  <div class="container">
+    <div class="projects-grid" id="projectsGrid">
+
+      <!--
+      ╔══════════════════════════════════════════════════════════════╗
+      ║                  HOW TO ADD YOUR PROJECTS                    ║
+      ╠══════════════════════════════════════════════════════════════╣
+      ║  1. Copy one of the project-card blocks below.               ║
+      ║  2. Replace the SVG with a screenshot of your project        ║
+      ║     OR use an <img> tag inside .project-card-img             ║
+      ║  3. Set the href on .project-card to your project live URL   ║
+      ║     or a case study page (e.g. href="https://yoursite.com")  ║
+      ║  4. Update data-category to: "landing", "ecommerce",         ║
+      ║     "wordpress" or add your own category.                    ║
+      ║  5. Update the title, description, and tags.                 ║
+      ║  6. Remove class "coming-soon" to make it fully clickable.   ║
+      ╚══════════════════════════════════════════════════════════════╝
+      -->
+
+
+      <!-- ─────────────────────────────────────────────────────────
+           PROJECT 1 — DUMMY (landing page)
+           TODO: Replace href="#" with your real project URL
+           TODO: Replace SVG with a real screenshot <img>
+      ────────────────────────────────────────────────────────── -->
+      <a class="project-card fade-up coming-soon" data-category="landing"
+         href="#"
+         target="_blank" rel="noopener">
+        <div class="project-card-img">
+          <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="338" fill="#0D0D14"/>
+            <defs>
+              <radialGradient id="p1g" cx="50%" cy="30%" r="60%">
+                <stop offset="0%" stop-color="#6C3BFF" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#0D0D14" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="600" height="338" fill="url(#p1g)"/>
+            <rect x="20" y="16" width="70" height="8" rx="4" fill="#fff" opacity="0.9"/>
+            <rect x="430" y="14" width="50" height="12" rx="6" fill="#7C5CFF"/>
+            <rect x="100" y="70" width="280" height="20" rx="4" fill="#fff" opacity="0.85"/>
+            <rect x="130" y="100" width="220" height="20" rx="4" fill="#7C5CFF" opacity="0.8"/>
+            <rect x="110" y="132" width="260" height="8" rx="3" fill="#fff" opacity="0.2"/>
+            <rect x="130" y="156" width="120" height="30" rx="15" fill="#7C5CFF"/>
+            <rect x="70" y="220" width="140" height="90" rx="12" fill="#1A1A2E" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.1"/>
+            <rect x="230" y="220" width="140" height="90" rx="12" fill="#1A1A2E" stroke="#7C5CFF" stroke-width="1" stroke-opacity="0.4"/>
+            <rect x="390" y="220" width="140" height="90" rx="12" fill="#1A1A2E" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.1"/>
+          </svg>
+          <div class="project-card-overlay">
+            <div class="overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <span class="badge-cs">Coming Soon</span>
+        </div>
+        <div class="project-card-body">
+          <div class="project-card-tags">
+            <span class="tag accent">Landing Page</span>
+            <span class="tag">SaaS</span>
+          </div>
+          <h3 class="project-card-title">Nexora — SaaS Analytics Platform</h3>
+          <p class="project-card-desc">A sleek, conversion-focused landing page for an analytics SaaS. Dark theme with purple accents and animated feature breakdowns.</p>
+          <span class="project-card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- ─────────────────────────────────────────────────────────
+           PROJECT 2 — DUMMY (e-commerce)
+           TODO: Replace href="#" with your real project URL
+      ────────────────────────────────────────────────────────── -->
+      <a class="project-card fade-up fade-up-delay-1 coming-soon" data-category="ecommerce"
+         href="#"
+         target="_blank" rel="noopener">
+        <div class="project-card-img">
+          <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="338" fill="#FBF8F4"/>
+            <defs>
+              <radialGradient id="p2g" cx="80%" cy="20%" r="50%">
+                <stop offset="0%" stop-color="#FF6B1A" stop-opacity="0.12"/>
+                <stop offset="100%" stop-color="#FBF8F4" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="600" height="338" fill="url(#p2g)"/>
+            <rect x="20" y="16" width="60" height="8" rx="4" fill="#1A1410" opacity="0.8"/>
+            <rect x="460" y="14" width="60" height="12" rx="6" fill="#FF6B1A"/>
+            <rect x="40" y="80" width="55" height="7" rx="3" fill="#FF6B1A" opacity="0.7"/>
+            <rect x="40" y="98" width="230" height="18" rx="4" fill="#1A1410" opacity="0.85"/>
+            <rect x="40" y="126" width="190" height="18" rx="4" fill="#1A1410" opacity="0.85"/>
+            <rect x="40" y="160" width="110" height="32" rx="16" fill="#FF6B1A"/>
+            <rect x="330" y="50" width="240" height="270" rx="16" fill="#F0EBE3"/>
+            <ellipse cx="450" cy="185" rx="80" ry="100" fill="#E8DED2"/>
+            <ellipse cx="450" cy="155" rx="40" ry="55" fill="#D4C4B0" opacity="0.6"/>
+            <rect x="350" y="68" width="60" height="24" rx="8" fill="#FF6B1A"/>
+          </svg>
+          <div class="project-card-overlay">
+            <div class="overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <span class="badge-cs">Coming Soon</span>
+        </div>
+        <div class="project-card-body">
+          <div class="project-card-tags">
+            <span class="tag accent">E-Commerce</span>
+            <span class="tag">Shopify</span>
+          </div>
+          <h3 class="project-card-title">Aurore — Premium Fashion Store</h3>
+          <p class="project-card-desc">Shopify storefront redesign for a premium fashion brand. Split-layout hero with warm neutrals and a product-first visual hierarchy.</p>
+          <span class="project-card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- ─────────────────────────────────────────────────────────
+           PROJECT 3 — DUMMY (landing page / agency)
+           TODO: Replace href="#" with your real project URL
+      ────────────────────────────────────────────────────────── -->
+      <a class="project-card fade-up fade-up-delay-2 coming-soon" data-category="landing"
+         href="#"
+         target="_blank" rel="noopener">
+        <div class="project-card-img">
+          <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="338" fill="#050505"/>
+            <defs>
+              <linearGradient id="p3g" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FF6B1A" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#FF6B1A" stop-opacity="0.05"/>
+              </linearGradient>
+            </defs>
+            <rect width="600" height="338" fill="url(#p3g)"/>
+            <rect x="20" y="90" width="360" height="28" rx="4" fill="#fff" opacity="0.9"/>
+            <rect x="20" y="128" width="320" height="28" rx="4" fill="#fff" opacity="0.9"/>
+            <rect x="20" y="166" width="260" height="28" rx="4" fill="#FF6B1A" opacity="0.85"/>
+            <rect x="20" y="214" width="240" height="7" rx="3" fill="#fff" opacity="0.25"/>
+            <rect x="20" y="254" width="110" height="34" rx="17" fill="#FF6B1A"/>
+            <circle cx="490" cy="170" r="100" fill="none" stroke="#FF6B1A" stroke-width="1" stroke-opacity="0.18"/>
+            <circle cx="490" cy="170" r="65" fill="none" stroke="#FF6B1A" stroke-width="1" stroke-opacity="0.12"/>
+            <circle cx="490" cy="170" r="32" fill="#FF6B1A" opacity="0.06"/>
+            <rect x="20" y="18" width="55" height="8" rx="4" fill="#fff" opacity="0.9"/>
+            <rect x="470" y="16" width="60" height="12" rx="6" fill="#FF6B1A"/>
+          </svg>
+          <div class="project-card-overlay">
+            <div class="overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <span class="badge-cs">Coming Soon</span>
+        </div>
+        <div class="project-card-body">
+          <div class="project-card-tags">
+            <span class="tag accent">Landing Page</span>
+            <span class="tag">Agency</span>
+          </div>
+          <h3 class="project-card-title">Forge Agency — Creative Studio Site</h3>
+          <p class="project-card-desc">Bold, typographic-first landing page for a creative agency. Maximalist hero with large display text and a signature orange tone.</p>
+          <span class="project-card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- ─────────────────────────────────────────────────────────
+           PROJECT 4 — DUMMY (e-commerce / luxury)
+           TODO: Replace href="#" with your real project URL
+      ────────────────────────────────────────────────────────── -->
+      <a class="project-card fade-up fade-up-delay-3 coming-soon" data-category="ecommerce"
+         href="#"
+         target="_blank" rel="noopener">
+        <div class="project-card-img">
+          <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="338" fill="#0E0C0A"/>
+            <defs>
+              <radialGradient id="p4g" cx="30%" cy="50%" r="60%">
+                <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#0E0C0A" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="600" height="338" fill="url(#p4g)"/>
+            <rect x="0" y="0" width="280" height="338" fill="#1C1810"/>
+            <ellipse cx="140" cy="170" rx="90" ry="115" fill="#2A2218"/>
+            <circle cx="140" cy="155" r="30" fill="none" stroke="#C9A96E" stroke-width="2" stroke-opacity="0.6"/>
+            <circle cx="140" cy="155" r="18" fill="#C9A96E" opacity="0.3"/>
+            <rect x="310" y="70" width="50" height="6" rx="3" fill="#C9A96E" opacity="0.7"/>
+            <rect x="310" y="90" width="250" height="18" rx="4" fill="#fff" opacity="0.9"/>
+            <rect x="310" y="118" width="210" height="18" rx="4" fill="#C9A96E" opacity="0.7"/>
+            <rect x="310" y="152" width="240" height="6" rx="3" fill="#fff" opacity="0.2"/>
+            <rect x="310" y="188" width="120" height="34" rx="17" fill="#C9A96E"/>
+            <rect x="20" y="16" width="55" height="8" rx="4" fill="#C9A96E" opacity="0.8"/>
+            <rect x="490" y="14" width="70" height="12" rx="6" fill="#C9A96E"/>
+          </svg>
+          <div class="project-card-overlay">
+            <div class="overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <span class="badge-cs">Coming Soon</span>
+        </div>
+        <div class="project-card-body">
+          <div class="project-card-tags">
+            <span class="tag accent">E-Commerce</span>
+            <span class="tag">Luxury</span>
+          </div>
+          <h3 class="project-card-title">Lumière — Jewelry E-Commerce</h3>
+          <p class="project-card-desc">Luxury jewelry Shopify store with a dark editorial aesthetic. Full-bleed product photography and elegant gold-toned typography.</p>
+          <span class="project-card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- ─────────────────────────────────────────────────────────
+           PROJECT 5 — DUMMY (wordpress)
+           TODO: Replace href="#" with your real project URL
+      ────────────────────────────────────────────────────────── -->
+      <a class="project-card fade-up fade-up-delay-4 coming-soon" data-category="wordpress"
+         href="#"
+         target="_blank" rel="noopener">
+        <div class="project-card-img">
+          <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="338" fill="#F5F5FF"/>
+            <defs>
+              <radialGradient id="p5g" cx="60%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.1"/>
+                <stop offset="100%" stop-color="#F5F5FF" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="600" height="338" fill="url(#p5g)"/>
+            <line x1="0" y1="50" x2="600" y2="50" stroke="#4F46E5" stroke-width="0.5" stroke-opacity="0.15"/>
+            <line x1="0" y1="100" x2="600" y2="100" stroke="#4F46E5" stroke-width="0.5" stroke-opacity="0.1"/>
+            <line x1="0" y1="150" x2="600" y2="150" stroke="#4F46E5" stroke-width="0.5" stroke-opacity="0.08"/>
+            <line x1="0" y1="200" x2="600" y2="200" stroke="#4F46E5" stroke-width="0.5" stroke-opacity="0.08"/>
+            <line x1="0" y1="250" x2="600" y2="250" stroke="#4F46E5" stroke-width="0.5" stroke-opacity="0.1"/>
+            <line x1="0" y1="300" x2="600" y2="300" stroke="#4F46E5" stroke-width="0.5" stroke-opacity="0.08"/>
+            <rect x="220" y="58" width="160" height="20" rx="10" fill="#4F46E5" opacity="0.1"/>
+            <rect x="240" y="65" width="120" height="7" rx="3" fill="#4F46E5" opacity="0.5"/>
+            <rect x="80" y="92" width="440" height="22" rx="4" fill="#1A1A2E" opacity="0.85"/>
+            <rect x="130" y="122" width="340" height="22" rx="4" fill="#1A1A2E" opacity="0.85"/>
+            <rect x="180" y="152" width="240" height="22" rx="4" fill="#4F46E5" opacity="0.75"/>
+            <rect x="170" y="192" width="260" height="7" rx="3" fill="#1A1A2E" opacity="0.28"/>
+            <rect x="200" y="228" width="100" height="32" rx="16" fill="#4F46E5"/>
+            <rect x="310" y="228" width="90" height="32" rx="16" fill="none" stroke="#1A1A2E" stroke-width="1.5" stroke-opacity="0.25"/>
+            <rect x="20" y="16" width="65" height="9" rx="4" fill="#1A1A2E" opacity="0.8"/>
+            <rect x="490" y="14" width="60" height="12" rx="6" fill="#4F46E5"/>
+          </svg>
+          <div class="project-card-overlay">
+            <div class="overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <span class="badge-cs">Coming Soon</span>
+        </div>
+        <div class="project-card-body">
+          <div class="project-card-tags">
+            <span class="tag accent">WordPress</span>
+            <span class="tag">Tech</span>
+          </div>
+          <h3 class="project-card-title">Vanta AI — Tech Startup WordPress</h3>
+          <p class="project-card-desc">Custom WordPress build for an AI startup. Grid-structured layout with clean indigo tones, animated feature rows, and an SEO-ready architecture.</p>
+          <span class="project-card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- ─────────────────────────────────────────────────────────
+           PROJECT 6 — DUMMY (landing page / app)
+           TODO: Replace href="#" with your real project URL
+      ────────────────────────────────────────────────────────── -->
+      <a class="project-card fade-up fade-up-delay-5 coming-soon" data-category="landing"
+         href="#"
+         target="_blank" rel="noopener">
+        <div class="project-card-img">
+          <svg viewBox="0 0 600 338" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="338" fill="#08100D"/>
+            <defs>
+              <radialGradient id="p6g" cx="50%" cy="60%" r="60%">
+                <stop offset="0%" stop-color="#00C982" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#08100D" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="600" height="338" fill="url(#p6g)"/>
+            <rect x="20" y="16" width="70" height="9" rx="4" fill="#00C982" opacity="0.8"/>
+            <rect x="460" y="14" width="70" height="12" rx="6" fill="#00C982"/>
+            <!-- Phone mockup center -->
+            <rect x="220" y="50" width="160" height="250" rx="20" fill="#0E1F18" stroke="#00C982" stroke-width="1" stroke-opacity="0.3"/>
+            <rect x="236" y="70" width="128" height="210" rx="12" fill="#142318"/>
+            <!-- App screen elements -->
+            <rect x="248" y="88" width="104" height="8" rx="3" fill="#00C982" opacity="0.6"/>
+            <rect x="256" y="104" width="88" height="16" rx="4" fill="#fff" opacity="0.85"/>
+            <rect x="260" y="128" width="80" height="6" rx="3" fill="#fff" opacity="0.25"/>
+            <rect x="248" y="150" width="36" height="36" rx="10" fill="#00C982" opacity="0.2"/>
+            <rect x="294" y="150" width="36" height="36" rx="10" fill="#00C982" opacity="0.2"/>
+            <rect x="340" y="150" width="36" height="36" rx="10" fill="#00C982" opacity="0.2"/>
+            <rect x="252" y="204" width="96" height="28" rx="14" fill="#00C982"/>
+            <!-- Side text -->
+            <rect x="20" y="100" width="160" height="14" rx="4" fill="#fff" opacity="0.7"/>
+            <rect x="20" y="126" width="130" height="14" rx="4" fill="#00C982" opacity="0.6"/>
+            <rect x="20" y="158" width="150" height="7" rx="3" fill="#fff" opacity="0.2"/>
+            <rect x="20" y="174" width="120" height="7" rx="3" fill="#fff" opacity="0.15"/>
+            <rect x="430" y="100" width="150" height="14" rx="4" fill="#fff" opacity="0.6"/>
+            <rect x="440" y="126" width="130" height="14" rx="4" fill="#00C982" opacity="0.5"/>
+          </svg>
+          <div class="project-card-overlay">
+            <div class="overlay-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+          <span class="badge-cs">Coming Soon</span>
+        </div>
+        <div class="project-card-body">
+          <div class="project-card-tags">
+            <span class="tag accent">Landing Page</span>
+            <span class="tag">App</span>
+          </div>
+          <h3 class="project-card-title">Fern — Wellness App Landing</h3>
+          <p class="project-card-desc">Dark, immersive landing page for a wellness mobile app. App mockup-centered layout with emerald accents and minimal copy.</p>
+          <span class="project-card-link">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <!--
+      ────────────────────────────────────────────────────────────
+      ADD MORE PROJECTS HERE
+      Copy the block above, remove "coming-soon" class,
+      set href to your live project URL, add a real screenshot,
+      and update the title/tags/description.
+      ────────────────────────────────────────────────────────────
+      -->
+
+    </div><!-- end projects-grid -->
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="bottom-section container">
+    <p>More projects being added soon. Want to work together?</p>
+    <a href="mailto:afnan@example.com" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+      Get in Touch
+    </a>
+  </div>
+
+</main>
+
+<div class="watermark">Designed and developed by Afnan Ahmed</div>
+
+<script>
+// ── THEME TOGGLE ──────────────────────────────────────────
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+const savedTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+
+themeToggle.addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+});
+
+// ── HEADER SCROLL HIDE/SHOW ───────────────────────────────
+const headerWrap = document.getElementById('headerWrap');
+let lastScrollY = 0;
+let ticking = false;
+
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const currentY = window.scrollY;
+      if (currentY > lastScrollY && currentY > 80) {
+        headerWrap.classList.add('hidden');
+      } else {
+        headerWrap.classList.remove('hidden');
+      }
+      lastScrollY = currentY;
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+
+// ── MOBILE NAV ────────────────────────────────────────────
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
+document.addEventListener('click', e => {
+  if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+    mobileNav.classList.remove('open');
+  }
+});
+
+// ── FILTER TABS ───────────────────────────────────────────
+const filterBtns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.project-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+    cards.forEach(card => {
+      const match = filter === 'all' || card.dataset.category === filter;
+      card.style.display = match ? '' : 'none';
+    });
+  });
+});
+
+// ── SCROLL FADE IN ────────────────────────────────────────
+const fadeEls = document.querySelectorAll('.fade-up');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+fadeEls.forEach(el => observer.observe(el));
+
+setTimeout(() => {
+  document.querySelectorAll('.page-hero .fade-up').forEach(el => el.classList.add('visible'));
+}, 100);
+</script>
+</body>
+</html>
