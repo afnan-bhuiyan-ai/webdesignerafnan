@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afnan Ahmed Bhuiyan — Web Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#FF6B1A;--accent-bright:#FF8C42;--accent-muted:rgba(255,107,26,0.14);
+  --accent-glow:rgba(255,107,26,0.38);--bg:#0A0A0A;--bg-2:#111111;
+  --bg-card:rgba(255,255,255,0.045);--border:rgba(255,255,255,0.09);
+  --border-accent:rgba(255,107,26,0.30);--text:#F0EDE8;
+  --text-muted:rgba(240,237,232,0.50);--text-subtle:rgba(240,237,232,0.26);
+  --header-bg:rgba(14,14,14,0.52);--glass-bg:rgba(255,255,255,0.06);
+  --glass-border:rgba(255,255,255,0.13);--glass-shine:rgba(255,255,255,0.09);
+  --shadow-deep:0 32px 80px rgba(0,0,0,0.60);--shadow-card:0 8px 40px rgba(0,0,0,0.35);
+  --shadow-accent:0 0 60px rgba(255,107,26,0.22);--radius:22px;
+  --tr:all .38s cubic-bezier(.4,0,.2,1);
+}
+[data-theme="light"]{
+  --bg:#F4F1ED;--bg-2:#EAE6E0;--bg-card:rgba(255,255,255,0.72);
+  --border:rgba(0,0,0,0.07);--border-accent:rgba(255,107,26,0.26);
+  --text:#18120C;--text-muted:rgba(24,18,12,0.50);--text-subtle:rgba(24,18,12,0.30);
+  --header-bg:rgba(244,241,237,0.75);--glass-bg:rgba(255,255,255,0.65);
+  --glass-border:rgba(255,255,255,0.95);--glass-shine:rgba(255,255,255,0.55);
+  --shadow-deep:0 32px 80px rgba(0,0,0,0.10);--shadow-card:0 8px 32px rgba(0,0,0,0.06);
+  --shadow-accent:0 0 60px rgba(255,107,26,0.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
+  min-height:100vh;overflow-x:hidden;transition:background .4s ease,color .4s ease;
+  -webkit-font-smoothing:antialiased}
+
+/* HEADER */
+.header-wrap{position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  z-index:1000;width:calc(100% - 32px);max-width:900px;
+  transition:top .45s cubic-bezier(.4,0,.2,1),opacity .45s ease}
+.header-wrap.hidden{top:-110px;opacity:0;pointer-events:none}
+header{background:var(--header-bg);backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);border:1px solid var(--glass-border);
+  border-radius:100px;padding:8px 10px;display:flex;align-items:center;
+  justify-content:space-between;gap:8px;
+  box-shadow:0 1px 0 var(--glass-shine) inset,0 12px 40px rgba(0,0,0,0.28),0 0 0 1px rgba(255,107,26,0.05);
+  transition:background .4s ease,border-color .4s ease}
+.header-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+.header-avatar{width:34px;height:34px;border-radius:50%;border:2px solid var(--accent);
+  overflow:hidden;flex-shrink:0;background:var(--accent-muted);
+  box-shadow:0 0 0 3px var(--accent-muted)}
+.header-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.header-name{font-size:13px;font-weight:600;color:var(--text);letter-spacing:-.01em;white-space:nowrap}
+nav{display:flex;align-items:center;gap:2px}
+nav a{font-size:13px;font-weight:400;color:var(--text-muted);text-decoration:none;
+  padding:7px 13px;border-radius:100px;transition:var(--tr);white-space:nowrap}
+nav a:hover{color:var(--text);background:var(--bg-card)}
+.header-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.theme-toggle{width:34px;height:34px;border-radius:50%;border:1px solid var(--glass-border);
+  background:var(--glass-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:var(--tr);color:var(--text-muted);flex-shrink:0;
+  box-shadow:0 1px 0 var(--glass-shine) inset}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-muted)}
+.theme-toggle svg{width:15px;height:15px}
+.theme-toggle .icon-moon{display:block}.theme-toggle .icon-sun{display:none}
+[data-theme="light"] .theme-toggle .icon-moon{display:none}
+[data-theme="light"] .theme-toggle .icon-sun{display:block}
+.btn-contact{background:var(--accent);color:#fff;border:none;border-radius:100px;
+  padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;
+  white-space:nowrap;transition:var(--tr);
+  box-shadow:0 4px 18px var(--accent-glow),0 1px 0 rgba(255,255,255,0.2) inset}
+.btn-contact:hover{background:var(--accent-bright);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;
+  gap:5px;cursor:pointer;width:36px;height:36px;border-radius:50%;
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 1px 0 var(--glass-shine) inset;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent}
+.hamburger span{display:block;width:16px;height:1.5px;background:var(--text);
+  border-radius:2px;transition:var(--tr);transform-origin:center;pointer-events:none}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* MOBILE NAV */
+.mobile-nav-wrap{position:fixed;top:74px;left:50%;
+  transform:translateX(-50%) translateY(-10px);
+  width:calc(100% - 32px);max-width:900px;z-index:998;
+  opacity:0;pointer-events:none;
+  transition:opacity .28s ease,transform .28s cubic-bezier(.4,0,.2,1)}
+.mobile-nav-wrap.open{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.mobile-nav-inner{background:var(--header-bg);backdrop-filter:blur(32px) saturate(200%);
+  -webkit-backdrop-filter:blur(32px) saturate(200%);border:1px solid var(--glass-border);
+  border-radius:24px;padding:10px;
+  box-shadow:0 1px 0 var(--glass-shine) inset,0 24px 60px rgba(0,0,0,0.35);
+  display:flex;flex-direction:column;gap:3px}
+.mobile-nav-inner a{font-size:15px;color:var(--text-muted);text-decoration:none;
+  padding:13px 18px;border-radius:14px;transition:var(--tr);display:block}
+.mobile-nav-inner a:hover{color:var(--text);background:var(--glass-bg)}
+.mobile-nav-divider{height:1px;background:var(--glass-border);margin:4px 8px}
+
+/* LAYOUT */
+.container{max-width:1100px;margin:0 auto;padding:0 28px}
+section{padding:90px 0;position:relative}
+.section-divider{width:100%;height:1px;background:var(--border)}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;position:relative;overflow:hidden;
+  padding:120px 24px 80px}
+.hero-bg{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 90% 55% at 50% 0%,rgba(255,107,26,0.16) 0%,transparent 65%),
+             radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,107,26,0.07) 0%,transparent 60%)}
+
+/* MARQUEE — large italic outline like reference site */
+.hero-marquee-wrap{position:absolute;top:50%;left:0;width:100%;
+  transform:translateY(-58%);pointer-events:none;overflow:hidden;z-index:0}
+.hero-marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
+.hero-marquee-text{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(68px,13vw,170px);
+  font-weight:400;font-style:italic;
+  color:transparent;
+  -webkit-text-stroke:1.5px rgba(255,107,26,0.18);
+  text-stroke:1.5px rgba(255,107,26,0.18);
+  letter-spacing:-.04em;line-height:1;padding-right:80px;user-select:none}
+[data-theme="light"] .hero-marquee-text{-webkit-text-stroke:1.5px rgba(255,107,26,0.22)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Hero image */
+.hero-image-wrap{position:relative;z-index:2;margin-bottom:24px}
+.hero-image-container{width:clamp(180px,26vw,300px);aspect-ratio:3/4;
+  border-radius:26px;overflow:hidden;position:relative;
+  box-shadow:0 0 0 1px rgba(255,107,26,0.18),0 2px 0 rgba(255,255,255,0.10) inset,
+             0 28px 80px rgba(0,0,0,0.55),0 0 80px rgba(255,107,26,0.18)}
+.hero-image-container img{width:100%;height:100%;object-fit:cover;
+  object-position:center top;display:block}
+.hero-glass-overlay{position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,0.12) 0%,rgba(255,255,255,0.03) 40%,rgba(255,107,26,0.06) 100%)}
+.hero-glass-overlay::after{content:'';position:absolute;top:0;left:0;right:0;height:45%;
+  background:linear-gradient(to bottom,rgba(255,255,255,0.1),transparent);border-radius:inherit}
+
+/* Floating glass badge */
+.hero-badge{position:absolute;bottom:-14px;right:-14px;
+  background:var(--glass-bg);backdrop-filter:blur(16px) saturate(160%);
+  -webkit-backdrop-filter:blur(16px) saturate(160%);
+  border:1px solid var(--glass-border);border-radius:14px;
+  padding:8px 14px;display:flex;align-items:center;gap:8px;
+  box-shadow:0 1px 0 var(--glass-shine) inset,0 8px 24px rgba(0,0,0,0.28);
+  white-space:nowrap;z-index:3}
+.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 8px var(--accent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+.hero-badge-text{font-size:11px;font-weight:500;color:var(--text);letter-spacing:.02em}
+
+.hero-tagline{position:relative;z-index:2;font-size:clamp(10px,1.1vw,12px);font-weight:400;
+  color:var(--text-muted);letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+.hero-cta{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;text-decoration:none;border-radius:100px;
+  padding:14px 28px;font-size:14px;font-weight:500;letter-spacing:.02em;transition:var(--tr);
+  box-shadow:0 8px 32px var(--accent-glow),0 1px 0 rgba(255,255,255,0.22) inset}
+.hero-cta:hover{background:var(--accent-bright);transform:translateY(-2px);box-shadow:0 14px 40px rgba(255,107,26,0.48)}
+.hero-cta svg{width:14px;height:14px;transition:transform .3s ease}
+.hero-cta:hover svg{transform:translateX(4px)}
+
+/* SERVICES */
+.services{padding:90px 0}
+.section-heading{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,50px);
+  font-weight:400;letter-spacing:-.03em;line-height:1.1;margin-bottom:48px;text-align:center}
+.section-heading em{font-style:italic;color:var(--accent)}
+.service-glass-card{background:var(--glass-bg);backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--glass-border);
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 1px 0 var(--glass-shine) inset,var(--shadow-card);
+  transition:var(--tr);display:grid;grid-template-columns:1fr 1fr}
+.service-glass-card:hover{border-color:var(--border-accent);
+  box-shadow:0 1px 0 var(--glass-shine) inset,var(--shadow-accent),var(--shadow-card)}
+.service-card-left{padding:36px 32px;background:rgba(255,107,26,0.04);
+  border-right:1px solid var(--glass-border);display:flex;flex-direction:column;gap:14px}
+.service-icon-wrap{width:52px;height:52px;border-radius:14px;background:var(--accent-muted);
+  border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 1px 0 rgba(255,255,255,0.12) inset}
+.service-icon{width:26px;height:26px;color:var(--accent)}
+.service-name{font-size:17px;font-weight:500;color:var(--text);letter-spacing:-.01em}
+.service-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.service-tag{font-size:10px;font-weight:500;padding:4px 10px;border-radius:100px;
+  background:var(--glass-bg);border:1px solid var(--glass-border);color:var(--text-muted);
+  letter-spacing:.05em;text-transform:uppercase;box-shadow:0 1px 0 var(--glass-shine) inset}
+.service-card-right{padding:36px 32px;display:flex;align-items:center}
+.service-desc{font-size:14px;line-height:1.75;color:var(--text-muted);font-weight:300}
+
+/* WORK SLIDER */
+.work{padding:90px 0;overflow:hidden}
+.work-slider-outer{overflow:hidden;padding:0 28px;margin:40px auto 0;max-width:1200px}
+.work-slider{display:flex;gap:20px;transition:transform .55s cubic-bezier(.4,0,.2,1);will-change:transform}
+.work-card{min-width:min(calc(100vw - 56px),680px);border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--glass-border);background:var(--glass-bg);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 var(--glass-shine) inset,var(--shadow-card);
+  transition:var(--tr);flex-shrink:0}
+.work-card:hover{border-color:var(--border-accent);transform:translateY(-5px);
+  box-shadow:0 1px 0 var(--glass-shine) inset,var(--shadow-accent),var(--shadow-card)}
+.work-card-img{width:100%;aspect-ratio:16/9;background:var(--bg-2);position:relative;overflow:hidden}
+.work-card-img svg{position:absolute;inset:0;width:100%;height:100%}
+.work-card-meta{padding:18px 22px 22px;display:flex;align-items:flex-start;
+  justify-content:space-between;gap:12px;background:var(--glass-bg);
+  border-top:1px solid var(--glass-border)}
+.work-card-info h3{font-size:17px;font-weight:500;color:var(--text);letter-spacing:-.02em;margin-bottom:3px}
+.work-card-info p{font-size:12px;color:var(--text-muted)}
+.work-card-tag{font-size:10px;font-weight:500;padding:4px 12px;border-radius:100px;
+  border:1px solid var(--border-accent);color:var(--accent);white-space:nowrap;
+  letter-spacing:.06em;text-transform:uppercase;background:var(--accent-muted);
+  box-shadow:0 1px 0 rgba(255,255,255,0.1) inset;flex-shrink:0}
+
+/* SLIDER CONTROLS */
+.slider-controls{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:28px}
+.slider-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--glass-border);
+  background:var(--glass-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:var(--tr);box-shadow:0 1px 0 var(--glass-shine) inset}
+.slider-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-muted)}
+.slider-dots{display:flex;gap:6px;align-items:center}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:var(--tr)}
+.dot.active{background:var(--accent);width:22px;border-radius:3px}
+
+/* TESTIMONIALS */
+.testimonials{padding:90px 0;overflow:hidden}
+.testi-slider-outer{overflow:hidden;padding:0 28px;margin:40px auto 0;max-width:1200px}
+.testi-slider{display:flex;gap:20px;transition:transform .55s cubic-bezier(.4,0,.2,1);will-change:transform}
+.testi-card{min-width:min(calc(100vw - 56px),520px);border-radius:var(--radius);flex-shrink:0;
+  background:var(--glass-bg);backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--glass-border);
+  padding:32px 28px 28px;box-shadow:0 1px 0 var(--glass-shine) inset,var(--shadow-card);
+  position:relative;overflow:hidden;transition:var(--tr)}
+.testi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 10%,rgba(255,107,26,0.5) 50%,transparent 90%);
+  opacity:0;transition:opacity .3s}
+.testi-card.active-testi,.testi-card:hover{border-color:var(--border-accent);
+  box-shadow:0 1px 0 var(--glass-shine) inset,var(--shadow-accent),var(--shadow-card)}
+.testi-card.active-testi::before,.testi-card:hover::before{opacity:1}
+.testi-quote{font-family:'DM Serif Display',serif;font-style:italic;
+  font-size:clamp(14px,1.4vw,16px);line-height:1.72;color:var(--text);margin-bottom:24px}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:var(--accent-muted);border:1px solid var(--border-accent);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;font-size:16px;color:var(--accent);
+  box-shadow:0 1px 0 rgba(255,255,255,0.15) inset}
+.testi-info strong{display:block;font-size:14px;font-weight:500;color:var(--text)}
+.testi-info span{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+.quote-mark{position:absolute;bottom:16px;right:22px;font-family:'DM Serif Display',serif;
+  font-size:72px;color:var(--accent);opacity:.1;line-height:1;user-select:none;pointer-events:none}
+
+/* CTA */
+.cta-section{padding:90px 0}
+.cta-card{background:var(--glass-bg);backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid var(--glass-border);
+  border-radius:32px;padding:clamp(48px,8vw,84px) clamp(28px,6vw,80px);
+  text-align:center;position:relative;overflow:hidden;
+  box-shadow:0 1px 0 var(--glass-shine) inset,var(--shadow-card)}
+.cta-card::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 50% 110%,rgba(255,107,26,0.1) 0%,transparent 65%)}
+.cta-card::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)}
+.cta-card h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,4vw,52px);
+  font-weight:400;letter-spacing:-.03em;margin-bottom:14px;position:relative}
+.cta-card h2 em{font-style:italic;color:var(--accent)}
+.cta-card p{font-size:15px;color:var(--text-muted);max-width:420px;margin:0 auto 32px;
+  line-height:1.7;position:relative;font-weight:300}
+.cta-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent);
+  text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.06em;
+  text-transform:uppercase;padding:11px 24px;border-radius:100px;
+  border:1px solid var(--border-accent);background:var(--accent-muted);
+  transition:var(--tr);position:relative;box-shadow:0 1px 0 rgba(255,255,255,0.12) inset}
+.cta-link:hover{background:var(--accent);color:#fff;border-color:var(--accent);gap:14px;
+  box-shadow:0 6px 20px var(--accent-glow)}
+.cta-link svg{width:13px;height:13px;transition:transform .3s ease}
+.cta-link:hover svg{transform:translateX(3px)}
+
+.watermark{text-align:center;padding:20px 28px 30px;font-size:11px;
+  color:var(--text-subtle);letter-spacing:.05em}
+
+/* FADE */
+.fade-up{opacity:0;transform:translateY(28px);
+  transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fd1{transition-delay:.08s}.fd2{transition-delay:.16s}.fd3{transition-delay:.24s}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{display:none}
+  .hamburger{display:flex}
+  .header-name{display:none}
+  section{padding:64px 0}
+  .container{padding:0 18px}
+  .hero{padding:100px 18px 64px;min-height:100svh}
+  .hero-image-container{width:clamp(160px,62vw,240px)}
+  .hero-badge{bottom:-10px;right:-8px;padding:6px 10px}
+  .hero-badge-text{font-size:10px}
+  .work-slider-outer{padding:0 18px}
+  .testi-slider-outer{padding:0 18px}
+  .work-card{min-width:calc(100vw - 36px)}
+  .testi-card{min-width:calc(100vw - 36px);padding:24px 20px 22px}
+  .testi-quote{font-size:14px}
+  .cta-card{padding:40px 22px;border-radius:24px}
+  .section-heading{font-size:clamp(26px,7vw,38px);margin-bottom:32px}
+  /* Stack service card on mobile */
+  .service-glass-card{grid-template-columns:1fr}
+  .service-card-left{border-right:none;border-bottom:1px solid var(--glass-border);padding:28px 22px}
+  .service-card-right{padding:24px 22px}
+}
+@media(max-width:420px){
+  .header-wrap{width:calc(100% - 20px);top:12px}
+  .btn-contact{padding:7px 14px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="header-wrap" id="headerWrap">
+  <header>
+    <a href="index.html" class="header-logo">
+      <div class="header-avatar">
+        <img src="Afnan_Side-pose-orange.png" alt="Afnan">
+      </div>
+      <span class="header-name">Afnan Ahmed</span>
+    </a>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="projects.html">Work</a>
+      <a href="#testimonials">Reviews</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <a href="mailto:afnan@example.com" class="btn-contact">Contact</a>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+</div>
+
+<div class="mobile-nav-wrap" id="mobileNavWrap" aria-hidden="true">
+  <div class="mobile-nav-inner">
+    <a href="#services">Services</a>
+    <a href="projects.html">Work</a>
+    <a href="#testimonials">Reviews</a>
+    <div class="mobile-nav-divider"></div>
+    <a href="mailto:afnan@example.com">Contact</a>
+  </div>
+</div>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-marquee-wrap">
+    <div class="hero-marquee-track">
+      <span class="hero-marquee-text">Afnan&#174;</span>
+      <span class="hero-marquee-text">Web Designer&#174;</span>
+      <span class="hero-marquee-text">Afnan&#174;</span>
+      <span class="hero-marquee-text">Web Designer&#174;</span>
+      <span class="hero-marquee-text">Afnan&#174;</span>
+      <span class="hero-marquee-text">Web Designer&#174;</span>
+      <span class="hero-marquee-text">Afnan&#174;</span>
+      <span class="hero-marquee-text">Web Designer&#174;</span>
+    </div>
+  </div>
+  <div class="hero-image-wrap fade-up">
+    <div class="hero-image-container">
+      <img src="Afnan_Side-pose-orange.png" alt="Afnan Ahmed Bhuiyan — Web Designer">
+      <div class="hero-glass-overlay"></div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span class="hero-badge-text">Available for projects</span>
+    </div>
+  </div>
+  <p class="hero-tagline fade-up fd1">Crafting quiet, confident digital experiences</p>
+  <a href="projects.html" class="hero-cta fade-up fd2">
+    View My Projects
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+  </a>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="services" id="services">
+  <div class="container">
+    <h2 class="section-heading fade-up">What I can <em>help</em> with.</h2>
+    <div class="service-glass-card fade-up fd1">
+      <div class="service-card-left">
+        <div class="service-icon-wrap">
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <span class="service-name">Website Design</span>
+        <div class="service-tags">
+          <span class="service-tag">WordPress</span>
+          <span class="service-tag">Shopify</span>
+          <span class="service-tag">UI/UX</span>
+        </div>
+      </div>
+      <div class="service-card-right">
+        <p class="service-desc">I design modern, purpose-driven websites that balance visual beauty with seamless usability. Every pixel is considered — from layout architecture to micro-interactions — so your brand communicates clearly, converts confidently, and leaves a lasting impression on every visitor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="work" id="work">
+  <div class="container">
+    <h2 class="section-heading fade-up">Things <em>I've Designed.</em></h2>
+  </div>
+  <div class="work-slider-outer">
+    <div class="work-slider" id="workSlider">
+
+      <div class="work-card">
+        <div class="work-card-img">
+          <svg viewBox="0 0 700 394" xmlns="http://www.w3.org/2000/svg">
+            <rect width="700" height="394" fill="#0D0D14"/>
+            <defs><radialGradient id="wg1" cx="50%" cy="30%" r="60%"><stop offset="0%" stop-color="#6C3BFF" stop-opacity=".3"/><stop offset="100%" stop-color="#0D0D14" stop-opacity="0"/></radialGradient></defs>
+            <rect width="700" height="394" fill="url(#wg1)"/>
+            <rect x="20" y="16" width="80" height="10" rx="5" fill="#fff" opacity=".9"/>
+            <rect x="480" y="14" width="50" height="12" rx="6" fill="#7C5CFF"/>
+            <rect x="380" y="16" width="40" height="8" rx="4" fill="#fff" opacity=".4"/>
+            <rect x="430" y="16" width="40" height="8" rx="4" fill="#fff" opacity=".4"/>
+            <rect x="120" y="80" width="300" height="22" rx="4" fill="#fff" opacity=".9"/>
+            <rect x="150" y="112" width="240" height="22" rx="4" fill="#7C5CFF" opacity=".8"/>
+            <rect x="130" y="148" width="280" height="10" rx="3" fill="#fff" opacity=".25"/>
+            <rect x="150" y="164" width="240" height="10" rx="3" fill="#fff" opacity=".18"/>
+            <rect x="150" y="192" width="110" height="32" rx="16" fill="#7C5CFF"/>
+            <rect x="272" y="192" width="90" height="32" rx="16" fill="none" stroke="#7C5CFF" stroke-width="1.5"/>
+            <rect x="70" y="270" width="160" height="100" rx="12" fill="#1A1A2E" stroke="#fff" stroke-width=".5" stroke-opacity=".1"/>
+            <rect x="250" y="270" width="160" height="100" rx="12" fill="#1A1A2E" stroke="#7C5CFF" stroke-opacity=".4"/>
+            <rect x="430" y="270" width="160" height="100" rx="12" fill="#1A1A2E" stroke="#fff" stroke-width=".5" stroke-opacity=".1"/>
+            <rect x="86" y="290" width="60" height="8" rx="3" fill="#fff" opacity=".7"/>
+            <rect x="86" y="306" width="120" height="6" rx="3" fill="#fff" opacity=".3"/>
+            <rect x="266" y="290" width="60" height="8" rx="3" fill="#7C5CFF" opacity=".9"/>
+            <rect x="266" y="306" width="120" height="6" rx="3" fill="#fff" opacity=".3"/>
+            <rect x="446" y="290" width="60" height="8" rx="3" fill="#fff" opacity=".7"/>
+            <rect x="446" y="306" width="120" height="6" rx="3" fill="#fff" opacity=".3"/>
+          </svg>
+        </div>
+        <div class="work-card-meta">
+          <div class="work-card-info"><h3>Nexora SaaS</h3><p>Analytics platform hero section</p></div>
+          <span class="work-card-tag">Landing Page</span>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-img">
+          <svg viewBox="0 0 700 394" xmlns="http://www.w3.org/2000/svg">
+            <rect width="700" height="394" fill="#FBF8F4"/>
+            <defs><radialGradient id="wg2" cx="80%" cy="20%" r="50%"><stop offset="0%" stop-color="#FF6B1A" stop-opacity=".12"/><stop offset="100%" stop-color="#FBF8F4" stop-opacity="0"/></radialGradient></defs>
+            <rect width="700" height="394" fill="url(#wg2)"/>
+            <rect x="20" y="16" width="60" height="10" rx="5" fill="#1A1410" opacity=".8"/>
+            <rect x="520" y="14" width="60" height="12" rx="6" fill="#FF6B1A"/>
+            <rect x="40" y="100" width="60" height="8" rx="3" fill="#FF6B1A" opacity=".7"/>
+            <rect x="40" y="118" width="260" height="20" rx="4" fill="#1A1410" opacity=".85"/>
+            <rect x="40" y="148" width="220" height="20" rx="4" fill="#1A1410" opacity=".85"/>
+            <rect x="40" y="228" width="120" height="36" rx="18" fill="#FF6B1A"/>
+            <rect x="380" y="60" width="280" height="310" rx="16" fill="#F0EBE3"/>
+            <ellipse cx="520" cy="215" rx="90" ry="110" fill="#E8DED2"/>
+            <rect x="400" y="80" width="70" height="28" rx="8" fill="#FF6B1A"/>
+          </svg>
+        </div>
+        <div class="work-card-meta">
+          <div class="work-card-info"><h3>Aurore Store</h3><p>Premium fashion e-commerce hero</p></div>
+          <span class="work-card-tag">E-Commerce</span>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-img">
+          <svg viewBox="0 0 700 394" xmlns="http://www.w3.org/2000/svg">
+            <rect width="700" height="394" fill="#050505"/>
+            <defs><linearGradient id="wg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF6B1A" stop-opacity=".25"/><stop offset="100%" stop-color="#FF6B1A" stop-opacity=".05"/></linearGradient></defs>
+            <rect width="700" height="394" fill="url(#wg3)"/>
+            <rect x="20" y="100" width="420" height="34" rx="4" fill="#fff" opacity=".9"/>
+            <rect x="20" y="146" width="380" height="34" rx="4" fill="#fff" opacity=".9"/>
+            <rect x="20" y="192" width="300" height="34" rx="4" fill="#FF6B1A" opacity=".85"/>
+            <rect x="20" y="296" width="130" height="38" rx="19" fill="#FF6B1A"/>
+            <circle cx="580" cy="200" r="120" fill="none" stroke="#FF6B1A" stroke-width="1" stroke-opacity=".2"/>
+            <circle cx="580" cy="200" r="80" fill="none" stroke="#FF6B1A" stroke-width="1" stroke-opacity=".15"/>
+            <circle cx="580" cy="200" r="40" fill="#FF6B1A" opacity=".07"/>
+            <rect x="20" y="20" width="60" height="10" rx="5" fill="#fff" opacity=".9"/>
+            <rect x="540" y="18" width="60" height="12" rx="6" fill="#FF6B1A"/>
+          </svg>
+        </div>
+        <div class="work-card-meta">
+          <div class="work-card-info"><h3>Forge Agency</h3><p>Bold creative agency landing</p></div>
+          <span class="work-card-tag">Landing Page</span>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-img">
+          <svg viewBox="0 0 700 394" xmlns="http://www.w3.org/2000/svg">
+            <rect width="700" height="394" fill="#0E0C0A"/>
+            <defs><radialGradient id="wg4" cx="30%" cy="50%" r="60%"><stop offset="0%" stop-color="#C9A96E" stop-opacity=".2"/><stop offset="100%" stop-color="#0E0C0A" stop-opacity="0"/></radialGradient></defs>
+            <rect width="700" height="394" fill="url(#wg4)"/>
+            <rect x="0" y="0" width="320" height="394" fill="#1C1810"/>
+            <ellipse cx="160" cy="200" rx="100" ry="130" fill="#2A2218"/>
+            <circle cx="160" cy="180" r="35" fill="none" stroke="#C9A96E" stroke-width="2" stroke-opacity=".6"/>
+            <circle cx="160" cy="180" r="20" fill="#C9A96E" opacity=".3"/>
+            <rect x="360" y="80" width="50" height="6" rx="3" fill="#C9A96E" opacity=".7"/>
+            <rect x="360" y="104" width="280" height="22" rx="4" fill="#fff" opacity=".9"/>
+            <rect x="360" y="136" width="240" height="22" rx="4" fill="#C9A96E" opacity=".7"/>
+            <rect x="360" y="220" width="130" height="38" rx="19" fill="#C9A96E"/>
+            <rect x="20" y="18" width="60" height="8" rx="4" fill="#C9A96E" opacity=".8"/>
+            <rect x="560" y="16" width="80" height="12" rx="6" fill="#C9A96E"/>
+          </svg>
+        </div>
+        <div class="work-card-meta">
+          <div class="work-card-info"><h3>Lumière Jewelry</h3><p>Luxury jewelry e-commerce hero</p></div>
+          <span class="work-card-tag">E-Commerce</span>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-img">
+          <svg viewBox="0 0 700 394" xmlns="http://www.w3.org/2000/svg">
+            <rect width="700" height="394" fill="#F5F5FF"/>
+            <defs><radialGradient id="wg5" cx="60%" cy="40%" r="50%"><stop offset="0%" stop-color="#4F46E5" stop-opacity=".1"/><stop offset="100%" stop-color="#F5F5FF" stop-opacity="0"/></radialGradient></defs>
+            <rect width="700" height="394" fill="url(#wg5)"/>
+            <line x1="0" y1="60" x2="700" y2="60" stroke="#4F46E5" stroke-width=".5" stroke-opacity=".15"/>
+            <line x1="0" y1="120" x2="700" y2="120" stroke="#4F46E5" stroke-width=".5" stroke-opacity=".1"/>
+            <line x1="0" y1="180" x2="700" y2="180" stroke="#4F46E5" stroke-width=".5" stroke-opacity=".08"/>
+            <rect x="220" y="58" width="260" height="22" rx="11" fill="#4F46E5" opacity=".1"/>
+            <rect x="80" y="100" width="540" height="26" rx="5" fill="#1A1A2E" opacity=".85"/>
+            <rect x="130" y="136" width="440" height="26" rx="5" fill="#1A1A2E" opacity=".85"/>
+            <rect x="180" y="172" width="340" height="26" rx="5" fill="#4F46E5" opacity=".75"/>
+            <rect x="220" y="264" width="120" height="36" rx="18" fill="#4F46E5"/>
+            <rect x="20" y="18" width="70" height="10" rx="5" fill="#1A1A2E" opacity=".8"/>
+            <rect x="570" y="16" width="70" height="12" rx="6" fill="#4F46E5"/>
+          </svg>
+        </div>
+        <div class="work-card-meta">
+          <div class="work-card-info"><h3>Vanta AI</h3><p>AI startup clean landing page</p></div>
+          <span class="work-card-tag">Landing Page</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-btn" id="workPrev" type="button" aria-label="Previous">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <div class="slider-dots" id="workDots"></div>
+    <button class="slider-btn" id="workNext" type="button" aria-label="Next">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+    </button>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <h2 class="section-heading fade-up"><em>Collaboration,</em> in their words.</h2>
+  </div>
+  <div class="testi-slider-outer">
+    <div class="testi-slider" id="testiSlider">
+      <div class="testi-card">
+        <p class="testi-quote">"Afnan rebuilt our entire WordPress site from the ground up. The result was stunning — fast, clean, and exactly on brand. Our conversion rate improved noticeably within the first week."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div class="testi-info"><strong>Rafiq Hassan</strong><span>Founder, Rema Studio</span></div>
+        </div>
+        <div class="quote-mark">"</div>
+      </div>
+      <div class="testi-card active-testi">
+        <p class="testi-quote">"Working with Afnan on our Shopify store was seamless. He understood our aesthetic immediately and designed a homepage that truly elevates our product. Every detail feels intentional."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div class="testi-info"><strong>Sofia Marchetti</strong><span>Marketing Manager, Eclat Shop</span></div>
+        </div>
+        <div class="quote-mark">"</div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">"The WordPress site Afnan built for our agency has become our best sales asset. Clients comment on it every meeting. The design speaks confidence before we say a word."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">J</div>
+          <div class="testi-info"><strong>James Okonkwo</strong><span>Creative Director, Pillar Co.</span></div>
+        </div>
+        <div class="quote-mark">"</div>
+      </div>
+      <div class="testi-card">
+        <p class="testi-quote">"Our Shopify redesign with Afnan exceeded all expectations. He brought structure to our scattered vision and translated it into a shopping experience our customers love and trust."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">N</div>
+          <div class="testi-info"><strong>Nadia Eriksson</strong><span>CEO, Nordic Goods</span></div>
+        </div>
+        <div class="quote-mark">"</div>
+      </div>
+    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-btn" id="testiPrev" type="button" aria-label="Previous">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <div class="slider-dots" id="testiDots"></div>
+    <button class="slider-btn" id="testiNext" type="button" aria-label="Next">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+    </button>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-card fade-up">
+      <h2>Your story, <em>well designed.</em></h2>
+      <p>Every brand has a story worth telling — let's design yours with intention and style.</p>
+      <a href="projects.html" class="cta-link">
+        Visit My Projects
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="watermark">Designed and developed by Afnan Ahmed</div>
+
+<script>
+// THEME
+const html=document.documentElement;
+const themeToggle=document.getElementById('themeToggle');
+html.setAttribute('data-theme',localStorage.getItem('theme')||'dark');
+themeToggle.addEventListener('click',()=>{
+  const next=html.getAttribute('data-theme')==='dark'?'light':'dark';
+  html.setAttribute('data-theme',next);localStorage.setItem('theme',next);
+});
+
+// HEADER SCROLL
+const headerWrap=document.getElementById('headerWrap');
+let lastY=0,ticking=false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){requestAnimationFrame(()=>{
+    const y=window.scrollY;
+    headerWrap.classList.toggle('hidden',y>lastY&&y>90);
+    lastY=y;ticking=false;
+  });ticking=true;}
+},{passive:true});
+
+// MOBILE NAV — THE KEY FIX
+// Uses opacity/pointer-events, never display:none, so toggle always works
+const hamburger=document.getElementById('hamburger');
+const mobileNavWrap=document.getElementById('mobileNavWrap');
+
+function openNav(){
+  mobileNavWrap.classList.add('open');
+  mobileNavWrap.setAttribute('aria-hidden','false');
+  hamburger.classList.add('open');
+}
+function closeNav(){
+  mobileNavWrap.classList.remove('open');
+  mobileNavWrap.setAttribute('aria-hidden','true');
+  hamburger.classList.remove('open');
+}
+
+hamburger.addEventListener('click',function(e){
+  e.stopPropagation();
+  mobileNavWrap.classList.contains('open')?closeNav():openNav();
+});
+
+mobileNavWrap.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeNav));
+
+document.addEventListener('click',function(e){
+  if(mobileNavWrap.classList.contains('open')&&
+     !hamburger.contains(e.target)&&!mobileNavWrap.contains(e.target)){closeNav();}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav();});
+
+// SLIDER
+function makeSlider(sliderId,prevId,nextId,dotsId){
+  const track=document.getElementById(sliderId);
+  const dotsEl=document.getElementById(dotsId);
+  if(!track||!dotsEl)return;
+  const items=Array.from(track.children);
+  let cur=0;
+  items.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='dot'+(i===0?' active':'');
+    d.addEventListener('click',()=>go(i));
+    dotsEl.appendChild(d);
+  });
+  function cardWidth(){
+    if(!items[0])return 300;
+    const gap=parseFloat(window.getComputedStyle(track).gap)||20;
+    return items[0].getBoundingClientRect().width+gap;
+  }
+  function go(i){
+    cur=Math.max(0,Math.min(i,items.length-1));
+    track.style.transform='translateX(-'+(cur*cardWidth())+'px)';
+    dotsEl.querySelectorAll('.dot').forEach((d,idx)=>d.classList.toggle('active',idx===cur));
+  }
+  document.getElementById(prevId).addEventListener('click',()=>go(cur-1));
+  document.getElementById(nextId).addEventListener('click',()=>go(cur+1));
+  let sx=0;
+  track.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  track.addEventListener('touchend',e=>{
+    const dx=sx-e.changedTouches[0].clientX;
+    if(Math.abs(dx)>44)go(dx>0?cur+1:cur-1);
+  });
+  window.addEventListener('resize',()=>go(cur),{passive:true});
+}
+makeSlider('workSlider','workPrev','workNext','workDots');
+makeSlider('testiSlider','testiPrev','testiNext','testiDots');
+
+// FADE IN
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.08,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+setTimeout(()=>{document.querySelectorAll('.hero .fade-up').forEach(el=>el.classList.add('visible'));},120);
+</script>
+</body>
+</html>
